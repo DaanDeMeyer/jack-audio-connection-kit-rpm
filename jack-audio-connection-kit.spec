@@ -10,13 +10,13 @@
 
 Summary:       The Jack Audio Connection Kit
 Name:          jack-audio-connection-kit
-Version:       1.9.10
-Release:       10%{?dist}
+Version:       1.9.12
+Release:       1%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 License:       GPLv2 and GPLv2+ and LGPLv2+
 Group:         System Environment/Daemons
 URL:           http://www.jackaudio.org
-Source0:       https://dl.dropbox.com/u/28869550/jack-%{version}.tar.bz2
+Source0:       https://github.com/jackaudio/jack2/releases/download/v%{version}/jack2-%{version}.tar.gz
 Source1:       %{name}-README.Fedora
 Source2:       %{name}-script.pa
 Source3:       %{name}-limits.conf
@@ -98,7 +98,7 @@ Requires:      %{name} = %{version}-%{release}
 Small example clients that use the Jack Audio Connection Kit.
 
 %prep
-%setup -q -n jack-%{version}
+%setup -q -n jack2-%{version}
 
 %patch0 -p1 -b .nodate
 %patch1 -p1 -b .outdir
@@ -265,6 +265,10 @@ exit 0
 
 
 %changelog
+* Tue Dec 26 2017 Nils Philippsen <nils@tiptoe.de> - 1.9.12-1
+- version 1.9.12
+- update source URL
+
 * Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.10-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
