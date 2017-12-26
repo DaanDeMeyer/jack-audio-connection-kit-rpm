@@ -1,0 +1,22 @@
+diff -up jack2-1.9.12/doxyfile.in.nodate jack2-1.9.12/doxyfile.in
+--- jack2-1.9.12/doxyfile.in.nodate	2017-12-13 22:19:04.000000000 +0100
++++ jack2-1.9.12/doxyfile.in	2017-12-26 18:15:27.130315688 +0100
+@@ -807,7 +807,7 @@ HTML_HEADER            =
+ # each generated HTML page. If it is left blank doxygen will generate a
+ # standard footer.
+ 
+-HTML_FOOTER            =
++HTML_FOOTER            = @SRCDIR@/no_date_footer.html
+ 
+ # The HTML_STYLESHEET tag can be used to specify a user-defined cascading
+ # style sheet that is used by each HTML page. It can be used to
+diff -up jack2-1.9.12/no_date_footer.html.nodate jack2-1.9.12/no_date_footer.html
+--- jack2-1.9.12/no_date_footer.html.nodate	2017-12-26 18:12:48.975963873 +0100
++++ jack2-1.9.12/no_date_footer.html	2017-12-26 18:12:48.975963873 +0100
+@@ -0,0 +1,6 @@
++<hr size="1"><address style="text-align: right;"><small>
++Generated for $projectname by <a href="http://www.doxygen.org/
++index.html"><img src="doxygen.png" alt="doxygen" align="middle" border="0"></a>
++$doxygenversion</small></address>
++</body>
++</html>

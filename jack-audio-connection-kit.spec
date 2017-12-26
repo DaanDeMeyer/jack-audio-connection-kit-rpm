@@ -21,11 +21,11 @@ Source1:       %{name}-README.Fedora
 Source2:       %{name}-script.pa
 Source3:       %{name}-limits.conf
 # No-date-footer hack to remove dates from doxygen documentation
-Patch0:        jack-audio-connection-kit-no_date_footer.patch
+Patch0:        jack2-1.9.12-nodate.patch
 # Build fix
-Patch1:        jack-doxygen-output-dir-fix.patch
+Patch1:        jack2-1.9.12-outdir.patch
 # We don't want the internal API documentation
-Patch2:        jack-apidoc-only.patch
+Patch2:        jack2-1.9.12-nointernalapi.patch
 # Adjust default priority. RHBZ#795094
 Patch3:        jack-realtime-compat.patch
 # Enable renaming and reordering the jack ports RHBZ#887408
@@ -268,6 +268,7 @@ exit 0
 * Tue Dec 26 2017 Nils Philippsen <nils@tiptoe.de> - 1.9.12-1
 - version 1.9.12
 - update source URL
+- update nodate, outdir, nointernalapi patches
 
 * Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.10-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
