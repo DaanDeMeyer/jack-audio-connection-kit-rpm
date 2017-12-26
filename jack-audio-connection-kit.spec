@@ -28,8 +28,6 @@ Patch1:        jack2-1.9.12-outdir.patch
 Patch2:        jack2-1.9.12-nointernalapi.patch
 # Adjust default priority. RHBZ#795094
 Patch3:        jack-realtime-compat.patch
-# Enable renaming and reordering the jack ports RHBZ#887408
-Patch4:        jack-portnames.patch
 # Fix ppc64 mpd startup issue RHBZ#799552
 Patch5:        jack-ppc64-long.patch
 # Fix building with gcc5
@@ -104,7 +102,6 @@ Small example clients that use the Jack Audio Connection Kit.
 %patch1 -p1 -b .outdir
 %patch2 -p1 -b .nointernalapi
 %patch3 -p1 -b .priority
-%patch4 -p1 -b .portnames
 %patch5 -p1 -b .mpd
 %patch6 -p1 -b .gcc5
 %patch7 -p1 -b .gcc6
@@ -269,6 +266,7 @@ exit 0
 - version 1.9.12
 - update source URL
 - update nodate, outdir, nointernalapi patches
+- remove broken (undocumented, non-upstreamed) portnames patch
 
 * Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.10-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
