@@ -99,7 +99,7 @@ Small example clients that use the Jack Audio Connection Kit.
 %patch4 -p1 -b .nojunk
 
 %build
-export CPPFLAGS="$RPM_OPT_FLAGS -O0"
+export CPPFLAGS="$RPM_OPT_FLAGS"
 export PREFIX=%{_prefix}
 # Parallel build disabled as it fails sometimes
 ./waf configure \
@@ -252,6 +252,7 @@ exit 0
 - remove broken (undocumented, non-upstreamed) portnames patch
 - remove obsolete ppc64-long/mpd, gcc* patches
 - remove binary junk from README
+- remove additional optimization options
 
 * Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.10-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
