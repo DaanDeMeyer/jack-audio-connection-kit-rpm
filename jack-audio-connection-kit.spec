@@ -28,6 +28,8 @@ Patch1:        jack2-1.9.12-outdir.patch
 Patch2:        jack2-1.9.12-nointernalapi.patch
 # Adjust default priority. RHBZ#795094
 Patch3:        jack-realtime-compat.patch
+# Remove binary junk from README
+Patch4:        jack2-1.9.12-nojunk.patch
 
 
 BuildRequires: alsa-lib-devel
@@ -94,14 +96,7 @@ Small example clients that use the Jack Audio Connection Kit.
 %patch1 -p1 -b .outdir
 %patch2 -p1 -b .nointernalapi
 %patch3 -p1 -b .priority
-
-# Fix encoding issues
-for file in ChangeLog README TODO; do
-   sed 's|\r||' $file > $file.tmp
-   iconv -f ISO-8859-1 -t UTF8 $file.tmp > $file.tmp2
-   touch -r $file $file.tmp2
-   mv -f $file.tmp2 $file
-done
+%patch4 -p1 -b .nojunk
 
 %build
 export CPPFLAGS="$RPM_OPT_FLAGS -O0"
@@ -256,6 +251,7 @@ exit 0
 - update nodate, outdir, nointernalapi patches
 - remove broken (undocumented, non-upstreamed) portnames patch
 - remove obsolete ppc64-long/mpd, gcc* patches
+- remove binary junk from README
 
 * Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.10-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
