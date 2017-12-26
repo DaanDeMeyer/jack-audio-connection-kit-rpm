@@ -101,7 +101,6 @@ Small example clients that use the Jack Audio Connection Kit.
 %build
 export CPPFLAGS="$RPM_OPT_FLAGS"
 export PREFIX=%{_prefix}
-# Parallel build disabled as it fails sometimes
 ./waf configure \
    %{?_smp_mflags} \
    --mandir=%{_mandir}/man1 \
