@@ -238,6 +238,7 @@ exit 0
 %{_bindir}/jack_cpu
 %{_bindir}/jack_iodelay
 %{_bindir}/jack_multiple_metro
+%{_bindir}/jack_simdtests
 %{_bindir}/jack_test
 
 %{_mandir}/man1/jack_iodelay.1*
@@ -252,6 +253,7 @@ exit 0
 - remove obsolete ppc64-long/mpd, gcc* patches
 - remove binary junk from README
 - remove additional optimization options
+- add jack_simdtests executable
 
 * Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.10-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
