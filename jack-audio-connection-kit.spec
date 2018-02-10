@@ -11,7 +11,7 @@
 Summary:       The Jack Audio Connection Kit
 Name:          jack-audio-connection-kit
 Version:       1.9.12
-Release:       3%{?dist}
+Release:       4%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 License:       GPLv2 and GPLv2+ and LGPLv2+
 Group:         System Environment/Daemons
@@ -149,9 +149,7 @@ chmod 755 $RPM_BUILD_ROOT%{_libdir}/jack/*.so $RPM_BUILD_ROOT%{_libdir}/libjack*
 getent group %groupname > /dev/null || groupadd -r %groupname
 exit 0
 
-%post -p /sbin/ldconfig
-
-%postun -p /sbin/ldconfig
+%ldconfig_scriptlets
 
 %files 
 %doc ChangeLog README README_NETJACK2 TODO
@@ -246,6 +244,9 @@ exit 0
 
 
 %changelog
+* Sat Feb 10 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.9.12-4
+- Switch to %%ldconfig_scriptlets
+
 * Fri Feb 09 2018 Orcan Ogetbil <oget[dot]fedora[at]gmail[dot]com> - 1.9.12-3
 - Build with RPM_LD_FLAGS exported
 
