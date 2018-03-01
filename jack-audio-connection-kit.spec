@@ -36,6 +36,7 @@ BuildRequires: alsa-lib-devel
 BuildRequires: dbus-devel
 BuildRequires: doxygen
 BuildRequires: expat-devel
+BuildRequires: gcc-c++
 %ifnarch s390 s390x
 %if !0%{?bootstrap}
 BuildRequires: libffado-devel
