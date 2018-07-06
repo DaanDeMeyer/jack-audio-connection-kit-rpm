@@ -11,7 +11,7 @@
 Summary:       The Jack Audio Connection Kit
 Name:          jack-audio-connection-kit
 Version:       1.9.12
-Release:       4%{?dist}
+Release:       5%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 License:       GPLv2 and GPLv2+ and LGPLv2+
 Group:         System Environment/Daemons
@@ -30,6 +30,8 @@ Patch2:        jack2-1.9.12-nointernalapi.patch
 Patch3:        jack-realtime-compat.patch
 # Remove binary junk from README
 Patch4:        jack2-1.9.12-nojunk.patch
+# Proper Python2 shebangs
+Patch5:        jack2-1.9.12-python-shebang.patch
 
 
 BuildRequires: alsa-lib-devel
@@ -98,6 +100,7 @@ Small example clients that use the Jack Audio Connection Kit.
 %patch2 -p1 -b .nointernalapi
 %patch3 -p1 -b .priority
 %patch4 -p1 -b .nojunk
+%patch5 -p1 -b .shebang
 
 %build
 export CPPFLAGS="$RPM_OPT_FLAGS"
@@ -245,6 +248,9 @@ exit 0
 
 
 %changelog
+* Thu Jul 05 2018 Orcan Ogetbil <oget[dot]fedora[at]gmail[dot]com> - 1.9.12-5
+- Fix unversioned Python shebangs
+
 * Sat Feb 10 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.9.12-4
 - Switch to %%ldconfig_scriptlets
 
