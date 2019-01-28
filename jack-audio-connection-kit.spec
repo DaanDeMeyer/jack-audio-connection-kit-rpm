@@ -14,7 +14,6 @@ Version:       1.9.12
 Release:       6%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 License:       GPLv2 and GPLv2+ and LGPLv2+
-Group:         System Environment/Daemons
 URL:           http://www.jackaudio.org
 Source0:       https://github.com/jackaudio/jack2/releases/download/v%{version}/jack2-%{version}.tar.gz
 Source1:       %{name}-README.Fedora
@@ -69,7 +68,6 @@ latency operation.
 
 %package dbus
 Summary:       Jack D-Bus launcher
-Group:         Applications/Multimedia
 Requires:      %{name} = %{version}-%{release}
 
 %description dbus
@@ -78,7 +76,6 @@ Launcher to start Jack through D-Bus.
 
 %package devel
 Summary:       Header files for Jack
-Group:         Development/Libraries
 Requires:      %{name} = %{version}-%{release}
 
 %description devel
@@ -86,7 +83,6 @@ Header files for the Jack Audio Connection Kit.
 
 %package example-clients
 Summary:       Example clients that use Jack 
-Group:         Applications/Multimedia
 Requires:      %{name} = %{version}-%{release}
 
 %description example-clients
