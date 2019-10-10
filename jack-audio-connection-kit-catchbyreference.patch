@@ -1,0 +1,13 @@
+diff --git a/linux/alsarawmidi/JackALSARawMidiPort.cpp b/linux/alsarawmidi/JackALSARawMidiPort.cpp
+index 70e1fa71..8ef0ab65 100644
+--- a/linux/alsarawmidi/JackALSARawMidiPort.cpp
++++ b/linux/alsarawmidi/JackALSARawMidiPort.cpp
+@@ -109,7 +109,7 @@ JackALSARawMidiPort::JackALSARawMidiPort(const char *client_name, snd_rawmidi_in
+     }
+     try {
+         CreateNonBlockingPipe(fds);
+-    } catch (std::exception e) {
++    } catch (std::exception& e) {
+         error_message = e.what();
+         func = "CreateNonBlockingPipe";
+         goto close;

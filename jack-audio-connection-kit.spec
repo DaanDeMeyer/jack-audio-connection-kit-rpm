@@ -10,8 +10,8 @@
 
 Summary:       The Jack Audio Connection Kit
 Name:          jack-audio-connection-kit
-Version:       1.9.12
-Release:       9%{?dist}
+Version:       1.9.13
+Release:       1%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 License:       GPLv2 and GPLv2+ and LGPLv2+
 URL:           http://www.jackaudio.org
@@ -19,19 +19,14 @@ Source0:       https://github.com/jackaudio/jack2/releases/download/v%{version}/
 Source1:       %{name}-README.Fedora
 Source2:       %{name}-script.pa
 Source3:       %{name}-limits.conf
-# No-date-footer hack to remove dates from doxygen documentation
-Patch0:        jack2-1.9.12-nodate.patch
-# Build fix
-Patch1:        jack2-1.9.12-outdir.patch
-# We don't want the internal API documentation
-Patch2:        jack2-1.9.12-nointernalapi.patch
+# Patch doxygen documentation
+Patch0:        %{name}-doxygen.patch
 # Adjust default priority. RHBZ#795094
-Patch3:        jack-realtime-compat.patch
-# Remove binary junk from README
-Patch4:        jack2-1.9.12-nojunk.patch
+Patch1:        jack-realtime-compat.patch
 # Proper Python2 shebangs
-Patch5:        jack2-1.9.12-python-shebang.patch
-
+Patch2:        %{name}-python-shebang.patch
+# Catch exception by reference, patch sent upstream https://github.com/jackaudio/jack2/pull/511
+Patch3:        %{name}-catchbyreference.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: dbus-devel
@@ -48,7 +43,7 @@ BuildRequires: libsndfile-devel
 BuildRequires: ncurses-devel
 BuildRequires: opus-devel
 BuildRequires: pkgconfig
-BuildRequires: python2
+BuildRequires: python3
 BuildRequires: readline-devel
 
 Requires(pre): shadow-utils
@@ -89,21 +84,12 @@ Requires:      %{name} = %{version}-%{release}
 Small example clients that use the Jack Audio Connection Kit.
 
 %prep
-%setup -q -n jack2-%{version}
-
-%patch0 -p1 -b .nodate
-%patch1 -p1 -b .outdir
-%patch2 -p1 -b .nointernalapi
-%patch3 -p1 -b .priority
-%patch4 -p1 -b .nojunk
-%patch5 -p1 -b .shebang
+%autosetup -p1 -n jack2-%{version}
 
 %build
-export CPPFLAGS="$RPM_OPT_FLAGS"
-export LDFLAGS="$RPM_LD_FLAGS"
+%set_build_flags
 export PREFIX=%{_prefix}
-./waf configure \
-   %{?_smp_mflags} \
+python3 ./waf configure \
    --mandir=%{_mandir}/man1 \
    --libdir=%{_libdir} \
    --doxygen \
@@ -118,20 +104,19 @@ export PREFIX=%{_prefix}
    --clients 256 \
    --ports-per-application=2048
 
-
-./waf build %{?_smp_mflags} -v
+python3 ./waf build %{?_smp_mflags} -v
 
 %install
-./waf --destdir=$RPM_BUILD_ROOT install
+python3 ./waf --destdir=%{buildroot} install
 
 # move doxygen documentation to the right place
-mv $RPM_BUILD_ROOT%{_datadir}/jack-audio-connection-kit/reference .
-rm -rf $RPM_BUILD_ROOT%{_datadir}/jack-audio-connection-kit
+mv %{buildroot}%{_datadir}/jack-audio-connection-kit/reference .
+rm -rf %{buildroot}%{_datadir}/jack-audio-connection-kit
 
 # install our limits to the /etc/security/limits.d
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d
+mkdir -p %{buildroot}%{_sysconfdir}/security/limits.d
 sed -e 's,@groupname@,%groupname,g; s,@pagroup@,%pagroup,g;' \
-    %{SOURCE3} > $RPM_BUILD_ROOT%{_sysconfdir}/security/limits.d/95-jack.conf
+    %{SOURCE3} > %{buildroot}%{_sysconfdir}/security/limits.d/95-jack.conf
 
 # prepare README.Fedora for documentation including
 install -p -m644 %{SOURCE1} README.Fedora
@@ -140,19 +125,17 @@ install -p -m644 %{SOURCE1} README.Fedora
 install -p -m644 %{SOURCE2} jack.pa
 
 # For compatibility with jack1
-mv $RPM_BUILD_ROOT%{_bindir}/jack_rec $RPM_BUILD_ROOT%{_bindir}/jackrec
+mv %{buildroot}%{_bindir}/jack_rec %{buildroot}%{_bindir}/jackrec
 
 # Fix permissions of the modules
-chmod 755 $RPM_BUILD_ROOT%{_libdir}/jack/*.so $RPM_BUILD_ROOT%{_libdir}/libjack*.so.*.*.*
+chmod 755 %{buildroot}%{_libdir}/jack/*.so %{buildroot}%{_libdir}/libjack*.so.*.*.*
 
 %pre
 getent group %groupname > /dev/null || groupadd -r %groupname
 exit 0
 
-%ldconfig_scriptlets
-
-%files 
-%doc ChangeLog README README_NETJACK2 TODO
+%files
+%doc ChangeLog.rst README.rst README_NETJACK2
 %doc README.Fedora
 %doc jack.pa
 %{_bindir}/jackd
@@ -205,6 +188,7 @@ exit 0
 %{_bindir}/jack_net_master
 %{_bindir}/jack_net_slave
 %{_bindir}/jack_netsource
+%{_bindir}/jack_property
 %{_bindir}/jack_samplerate
 %{_bindir}/jack_server_control
 %{_bindir}/jack_session_notify
@@ -227,6 +211,7 @@ exit 0
 %{_mandir}/man1/jack_metro.1*
 %{_mandir}/man1/jack_monitor_client.1*
 %{_mandir}/man1/jack_netsource.1*
+%{_mandir}/man1/jack_property.1*
 %{_mandir}/man1/jack_samplerate.1*
 %{_mandir}/man1/jack_showtime.1*
 %{_mandir}/man1/jack_simple_client.1*
@@ -244,6 +229,11 @@ exit 0
 
 
 %changelog
+* Mon Oct 07 2019 Guido Aulisi <guido.aulisi@gmail.com> - 1.9.13-1
+- Update to 1.9.13
+- Drop python2
+- Some spec cleanup
+
 * Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.12-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
