@@ -11,7 +11,7 @@
 Summary:       The Jack Audio Connection Kit
 Name:          jack-audio-connection-kit
 Version:       1.9.13
-Release:       1%{?dist}
+Release:       2%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 License:       GPLv2 and GPLv2+ and LGPLv2+
 URL:           http://www.jackaudio.org
@@ -27,6 +27,8 @@ Patch1:        jack-realtime-compat.patch
 Patch2:        %{name}-python-shebang.patch
 # Catch exception by reference, patch sent upstream https://github.com/jackaudio/jack2/pull/511
 Patch3:        %{name}-catchbyreference.patch
+# Fix compilation on arm
+Patch4:        %{name}-arm.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: dbus-devel
@@ -229,6 +231,9 @@ exit 0
 
 
 %changelog
+* Thu Oct 10 2019 Guido Aulisi <guido.aulisi@gmail.com> - 1.9.13-2
+- Fix compilation on arm
+
 * Mon Oct 07 2019 Guido Aulisi <guido.aulisi@gmail.com> - 1.9.13-1
 - Update to 1.9.13
 - Drop python2
