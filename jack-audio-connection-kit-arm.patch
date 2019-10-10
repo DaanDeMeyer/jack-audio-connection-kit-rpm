@@ -7,7 +7,7 @@ index de316429..0f135ec0 100644
      ucontext_t *ucontext = (ucontext_t*)ptr;
  
 -#if defined(HAVE_UCONTEXT) && defined(HAVE_NGREG)
-+#if ( defined(HAVE_UCONTEXT) && defined(HAVE_NGREG) ) || defined(HAVE_EXECINFO_H )
++#if ( defined(HAVE_UCONTEXT) && defined(HAVE_NGREG) ) || defined(HAVE_EXECINFO_H)
      size_t i;
  #endif
  #if defined(SIGSEGV_STACK_X86) || defined(SIGSEGV_STACK_IA64)

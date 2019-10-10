@@ -27,7 +27,7 @@ Patch1:        jack-realtime-compat.patch
 Patch2:        %{name}-python-shebang.patch
 # Catch exception by reference, patch sent upstream https://github.com/jackaudio/jack2/pull/511
 Patch3:        %{name}-catchbyreference.patch
-# Fix compilation on arm
+# Fix compilation on arm, patch sent upstream https://github.com/jackaudio/jack2/pull/512
 Patch4:        %{name}-arm.patch
 
 BuildRequires: alsa-lib-devel
