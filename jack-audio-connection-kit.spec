@@ -11,7 +11,7 @@
 Summary:       The Jack Audio Connection Kit
 Name:          jack-audio-connection-kit
 Version:       1.9.13
-Release:       2%{?dist}
+Release:       3%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 License:       GPLv2 and GPLv2+ and LGPLv2+
 URL:           http://www.jackaudio.org
@@ -36,7 +36,7 @@ BuildRequires: doxygen
 BuildRequires: expat-devel
 BuildRequires: gcc-c++
 %ifnarch s390 s390x
-%if !0%{?bootstrap}
+%if !0%{?bootstrap} && !0%{?flatpak}
 BuildRequires: libffado-devel
 %endif
 %endif
@@ -98,7 +98,7 @@ python3 ./waf configure \
    --dbus \
    --classic \
 %ifnarch s390 s390x
-%if !0%{?bootstrap}
+%if !0%{?bootstrap} && !0%{?flatpak}
    --firewire \
 %endif
 %endif
@@ -231,6 +231,9 @@ exit 0
 
 
 %changelog
+* Tue Oct 29 2019 Jan Beran <jaberan@redhat.com> - 1.9.13-3
+- Do not use libffado if building flatpak
+
 * Thu Oct 10 2019 Guido Aulisi <guido.aulisi@gmail.com> - 1.9.13-2
 - Fix compilation on arm
 
