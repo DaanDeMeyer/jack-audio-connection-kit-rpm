@@ -3,7 +3,7 @@
 Switch to root account.
 
 Install the required packages:
-    yum install alsa-plugins-jack
+    dnf install alsa-plugins-jack
 
 Add yourself to the jackuser group.
     usermod -a -G audio,jackuser "<your username>"
@@ -49,7 +49,7 @@ release of the sound device from Pulseaudio (see below).
 
 jackdbus is shipped in a separate package. To install this (as root) do:
 
-    yum install jack-audio-connection-kit-dus
+    dnf install jack-audio-connection-kit-dbus
 
 and check "Enable D-Bus interface" in Setup -> Misc within Qjackctl
 
