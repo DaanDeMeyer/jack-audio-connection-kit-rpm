@@ -10,25 +10,21 @@
 
 Summary:       The Jack Audio Connection Kit
 Name:          jack-audio-connection-kit
-Version:       1.9.13
-Release:       3%{?dist}
+Version:       1.9.14
+Release:       1%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 License:       GPLv2 and GPLv2+ and LGPLv2+
 URL:           http://www.jackaudio.org
-Source0:       https://github.com/jackaudio/jack2/releases/download/v%{version}/jack2-%{version}.tar.gz
+Source0:       https://github.com/jackaudio/jack2/releases/download/v%{version}/v%{version}.tar.gz#/jack2-%{version}.tar.gz
 Source1:       %{name}-README.Fedora
 Source2:       %{name}-script.pa
 Source3:       %{name}-limits.conf
+# Generate this file in the GIT repo by running ./svnversion_regenerate.sh svnversion.h
+Source4:       svnversion.h
 # Patch doxygen documentation
 Patch0:        %{name}-doxygen.patch
 # Adjust default priority. RHBZ#795094
 Patch1:        jack-realtime-compat.patch
-# Proper Python2 shebangs
-Patch2:        %{name}-python-shebang.patch
-# Catch exception by reference, patch sent upstream https://github.com/jackaudio/jack2/pull/511
-Patch3:        %{name}-catchbyreference.patch
-# Fix compilation on arm, patch sent upstream https://github.com/jackaudio/jack2/pull/512
-Patch4:        %{name}-arm.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: dbus-devel
@@ -89,6 +85,7 @@ Small example clients that use the Jack Audio Connection Kit.
 %autosetup -p1 -n jack2-%{version}
 
 %build
+cp -p %{SOURCE4} .
 %set_build_flags
 export PREFIX=%{_prefix}
 python3 ./waf configure \
@@ -231,6 +228,9 @@ exit 0
 
 
 %changelog
+* Fri Dec 06 2019 Guido Aulisi <guido.aulisi@gmail.com> - 1.9.14-1
+- Update to 1.9.14
+
 * Tue Oct 29 2019 Jan Beran <jaberan@redhat.com> - 1.9.13-3
 - Do not use libffado if building flatpak
 
