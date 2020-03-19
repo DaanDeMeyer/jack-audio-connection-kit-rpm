@@ -14,7 +14,7 @@ Version:       1.9.14
 Release:       2%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 License:       GPLv2 and GPLv2+ and LGPLv2+
-URL:           http://www.jackaudio.org
+URL:           https://www.jackaudio.org
 Source0:       https://github.com/jackaudio/jack2/releases/download/v%{version}/v%{version}.tar.gz#/jack2-%{version}.tar.gz
 Source1:       %{name}-README.Fedora
 Source2:       %{name}-script.pa
