@@ -11,7 +11,7 @@
 Summary:       The Jack Audio Connection Kit
 Name:          jack-audio-connection-kit
 Version:       1.9.14
-Release:       2%{?dist}
+Release:       3%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 License:       GPLv2 and GPLv2+ and LGPLv2+
 URL:           https://www.jackaudio.org
@@ -28,6 +28,7 @@ Patch1:        jack-realtime-compat.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: dbus-devel
+BuildRequires: libdb-devel
 BuildRequires: doxygen
 BuildRequires: expat-devel
 BuildRequires: gcc-c++
@@ -93,6 +94,7 @@ python3 ./waf configure \
    --libdir=%{_libdir} \
    --doxygen \
    --dbus \
+   --db \
    --classic \
 %ifnarch s390 s390x
 %if !0%{?bootstrap} && !0%{?flatpak}
@@ -228,6 +230,9 @@ exit 0
 
 
 %changelog
+* Sat Mar 21 2020 Bruno Vernay <brunovern.a@gmail.com> - 1.9.14-3
+- Add Berkley DB support for Jack properties
+
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
