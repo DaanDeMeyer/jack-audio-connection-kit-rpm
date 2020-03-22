@@ -28,7 +28,8 @@ Patch1:        jack-realtime-compat.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: dbus-devel
-BuildRequires: libdb-devel
+# Berkeley DB v6 new licence (AGPLv3) is incompatible with GPLv2. https://en.wikipedia.org/wiki/Berkeley_DB#Licensing
+BuildRequires: libdb-devel < 6.0.20
 BuildRequires: doxygen
 BuildRequires: expat-devel
 BuildRequires: gcc-c++
