@@ -13,12 +13,12 @@
 
 Summary:       The Jack Audio Connection Kit
 Name:          jack-audio-connection-kit
-Version:       1.9.14
-Release:       5%{?dist}
+Version:       1.9.16
+Release:       1%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 License:       GPLv2 and GPLv2+ and LGPLv2+
 URL:           https://www.jackaudio.org
-Source0:       https://github.com/jackaudio/jack2/releases/download/v%{version}/v%{version}.tar.gz#/jack2-%{version}.tar.gz
+Source0:       https://github.com/jackaudio/jack2/archive/v%{version}/v%{version}.tar.gz#/jack2-%{version}.tar.gz
 Source1:       %{name}-README.Fedora
 Source2:       %{name}-script.pa
 Source3:       %{name}-limits.conf
@@ -234,6 +234,10 @@ exit 0
 
 
 %changelog
+* Sat Jan  2 11:12:56 CET 2021 Guido Aulisi <guido.aulisi@gmail.com> - 1.9.16-1
+- Update to 1.9.16
+- Correct download URL
+
 * Tue Aug 25 2020 Guido Aulisi <guido.aulisi@gmail.com> - 1.9.14-5
 - Disable LTO (#1872065, #1869059)
 
