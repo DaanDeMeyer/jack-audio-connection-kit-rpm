@@ -13,8 +13,8 @@
 
 Summary:       The Jack Audio Connection Kit
 Name:          jack-audio-connection-kit
-Version:       1.9.16
-Release:       2%{?dist}
+Version:       1.9.17
+Release:       1%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 License:       GPLv2 and GPLv2+ and LGPLv2+
 URL:           https://www.jackaudio.org
@@ -81,7 +81,6 @@ Header files for the Jack Audio Connection Kit.
 
 %package example-clients
 Summary:       Example clients that use Jack 
-Requires:      %{name} = %{version}-%{release}
 
 %description example-clients
 Small example clients that use the Jack Audio Connection Kit.
@@ -143,6 +142,7 @@ exit 0
 %doc ChangeLog.rst README.rst README_NETJACK2
 %doc README.Fedora
 %doc jack.pa
+%license COPYING
 %{_bindir}/jackd
 %{_bindir}/jackrec
 %{_libdir}/jack/
@@ -168,6 +168,7 @@ exit 0
 %{_libdir}/pkgconfig/jack.pc
 
 %files example-clients
+%license COPYING
 %{_bindir}/alsa_in
 %{_bindir}/alsa_out
 %{_bindir}/jack_alias
@@ -234,6 +235,11 @@ exit 0
 
 
 %changelog
+* Mon Apr 05 2021 Guido Aulisi <guido.aulisi@gmail.com> - 1.9.17-1
+- Update to 1.9.17
+- Drop dependency on main package for example-clients (#1939083)
+- Use license tag
+
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
