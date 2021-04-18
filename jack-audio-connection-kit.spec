@@ -13,7 +13,7 @@
 
 Summary:       The Jack Audio Connection Kit
 Name:          jack-audio-connection-kit
-Version:       1.9.17
+Version:       1.9.18
 Release:       1%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 License:       GPLv2 and GPLv2+ and LGPLv2+
@@ -146,9 +146,9 @@ exit 0
 %{_bindir}/jackd
 %{_bindir}/jackrec
 %{_libdir}/jack/
-%{_libdir}/libjack.so.*
-%{_libdir}/libjacknet.so.*
-%{_libdir}/libjackserver.so.*
+%{_libdir}/libjack.so.0*
+%{_libdir}/libjacknet.so.0*
+%{_libdir}/libjackserver.so.0*
 %config(noreplace) %{_sysconfdir}/security/limits.d/*.conf
 
 %{_mandir}/man1/jackrec.1*
@@ -235,6 +235,10 @@ exit 0
 
 
 %changelog
+* Sun Apr 18 2021 Guido Aulisi <guido.aulisi@gmail.com> - 1.9.18-1
+- Update to 1.9.18
+- Correctly glob shared libraries
+
 * Mon Apr 05 2021 Guido Aulisi <guido.aulisi@gmail.com> - 1.9.17-1
 - Update to 1.9.17
 - Drop dependency on main package for example-clients (#1939083)
