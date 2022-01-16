@@ -13,7 +13,7 @@
 
 Summary:       The Jack Audio Connection Kit
 Name:          jack-audio-connection-kit
-Version:       1.9.19
+Version:       1.9.20
 Release:       1%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 License:       GPLv2 and GPLv2+ and LGPLv2+
@@ -26,6 +26,8 @@ Source3:       %{name}-limits.conf
 Source4:       svnversion.h
 # Adjust default priority. RHBZ#795094
 Patch1:        jack-realtime-compat.patch
+# Patch sent upstream https://github.com/jackaudio/jack2/pull/836
+Patch2:        %{name}-example-tools-man-pages.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: dbus-devel
@@ -46,6 +48,8 @@ BuildRequires: opus-devel
 BuildRequires: pkgconfig
 BuildRequires: python3
 BuildRequires: readline-devel
+BuildRequires: zita-alsa-pcmi-devel
+BuildRequires: zita-resampler-devel
 
 Requires(pre): shadow-utils
 Requires:      pam
@@ -104,7 +108,9 @@ python3 ./waf configure \
 %endif
    --alsa \
    --clients 256 \
-   --ports-per-application=2048
+   --ports-per-application=2048 \
+   --example-tools=yes \
+   --zalsa=yes
 
 python3 ./waf build %{?_smp_mflags} -v
 
@@ -233,6 +239,10 @@ exit 0
 
 
 %changelog
+* Sun Jan 16 2022 Guido Aulisi <guido.aulisi@gmail.com> - 1.9.20-1
+- Update to 1.9.20
+- Build zalsa internal client
+
 * Sat Jul 24 2021 Guido Aulisi <guido.aulisi@gmail.com> - 1.9.19-1
 - Update to 1.9.19
 
