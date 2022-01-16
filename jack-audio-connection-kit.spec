@@ -22,8 +22,6 @@ Source0:       https://github.com/jackaudio/jack2/archive/v%{version}/v%{version
 Source1:       %{name}-README.Fedora
 Source2:       %{name}-script.pa
 Source3:       %{name}-limits.conf
-# Generate this file in the GIT repo by running ./svnversion_regenerate.sh svnversion.h
-Source4:       svnversion.h
 # Adjust default priority. RHBZ#795094
 Patch1:        jack-realtime-compat.patch
 # Patch sent upstream https://github.com/jackaudio/jack2/pull/836
@@ -91,7 +89,6 @@ Small example clients that use the Jack Audio Connection Kit.
 %autosetup -p1 -n jack2-%{version}
 
 %build
-cp -p %{SOURCE4} .
 %set_build_flags
 export PREFIX=%{_prefix}
 python3 ./waf configure \
