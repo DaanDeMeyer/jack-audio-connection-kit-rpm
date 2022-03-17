@@ -46,8 +46,10 @@ BuildRequires: opus-devel
 BuildRequires: pkgconfig
 BuildRequires: python3
 BuildRequires: readline-devel
+%if 0%{?fedora}
 BuildRequires: zita-alsa-pcmi-devel
 BuildRequires: zita-resampler-devel
+%endif
 
 Requires(pre): shadow-utils
 Requires:      pam
@@ -106,8 +108,10 @@ python3 ./waf configure \
    --alsa \
    --clients 256 \
    --ports-per-application=2048 \
-   --example-tools=yes \
-   --zalsa=yes
+%if 0%{?fedora}
+   --zalsa=yes \
+%endif
+   --example-tools=yes
 
 python3 ./waf build %{?_smp_mflags} -v
 
