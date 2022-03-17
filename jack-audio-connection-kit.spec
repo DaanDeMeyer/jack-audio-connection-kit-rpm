@@ -35,7 +35,7 @@ BuildRequires: doxygen
 BuildRequires: expat-devel
 BuildRequires: gcc-c++
 %ifnarch s390 s390x
-%if !0%{?bootstrap} && !0%{?flatpak}
+%if !0%{?bootstrap} && !0%{?flatpak} && 0%{?rhel} < 9
 BuildRequires: libffado-devel
 %endif
 %endif
@@ -99,7 +99,7 @@ python3 ./waf configure \
    --db \
    --classic \
 %ifnarch s390 s390x
-%if !0%{?bootstrap} && !0%{?flatpak}
+%if !0%{?bootstrap} && !0%{?flatpak} && 0%{?rhel} < 9
    --firewire \
 %endif
 %endif
