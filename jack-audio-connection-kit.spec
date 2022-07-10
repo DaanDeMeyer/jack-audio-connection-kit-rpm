@@ -24,6 +24,8 @@ Source2:       %{name}-script.pa
 Source3:       %{name}-limits.conf
 # Adjust default priority. RHBZ#795094
 Patch1:        jack-realtime-compat.patch
+# https://github.com/jackaudio/jack2/pull/884
+Patch2:        jack-python3.11-compat.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: dbus-devel
